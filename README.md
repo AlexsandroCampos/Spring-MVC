@@ -1,3 +1,3 @@
 # Spring MVC
 
-Minhas atividades realizadas durante o curso de básico de Spring MVC.
+Minhas atividades realizadas durante o curso básico de Spring MVC.
