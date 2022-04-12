@@ -19,16 +19,22 @@ public class Professor {
     private String nome;
     private BigDecimal salario;
     @Enumerated(EnumType.STRING)
-    private StatusProfessor StatusProfessor;
+    private StatusProfessor statusProfessor;
 
     public Professor() { }
 
+    public Professor(String nome, BigDecimal salario, StatusProfessor statusProfessor) {
+        this.nome = nome;
+        this.salario = salario;
+        this.statusProfessor = statusProfessor;
+    }
+
     public StatusProfessor getStatusProfessor() {
-        return StatusProfessor;
+        return statusProfessor;
     }
 
     public void setStatusProfessor(StatusProfessor statusProfessor) {
-        this.StatusProfessor = statusProfessor;
+        this.statusProfessor = statusProfessor;
     }
 
     public BigDecimal getSalario() {
