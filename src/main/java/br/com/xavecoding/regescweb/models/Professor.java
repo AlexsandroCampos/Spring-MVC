@@ -60,4 +60,10 @@ public class Professor {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Professor [id=" + id + ", nome=" + nome + ", salario=" + salario + ", statusProfessor="
+                + statusProfessor + "]";
+    }
 }

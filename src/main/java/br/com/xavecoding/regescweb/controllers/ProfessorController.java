@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.xavecoding.regescweb.dto.RequisicaoNovoProfessor;
 import br.com.xavecoding.regescweb.models.Professor;
 import br.com.xavecoding.regescweb.models.StatusProfessor;
 import br.com.xavecoding.regescweb.repositories.ProfessorRepository;
-import ch.qos.logback.core.status.Status;
 
 
 @Controller
@@ -38,8 +38,9 @@ public class ProfessorController {
     }
 
     @PostMapping("/professores")
-    public String create(Professor professor) {
-        
+    public String create(RequisicaoNovoProfessor requisicao) {
+        Professor professor =  requisicao.toProfessor();
+        this.professorRepository.save(professor);
         return "redirect:/professores";
     }
 
