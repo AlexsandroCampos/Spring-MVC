@@ -2,13 +2,22 @@ package br.com.xavecoding.regescweb.dto;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import br.com.xavecoding.regescweb.models.Professor;
 import br.com.xavecoding.regescweb.models.StatusProfessor;
 
 // É uma classe DTO(Data Transfer Object)
 public class RequisicaoNovoProfessor {
+
+    @NotNull
+    @NotBlank
     private String nome;
     private StatusProfessor statusProfessor;
+    @NotNull
+    @DecimalMin("0.0")
     private BigDecimal salario;
 
     public String getNome() {
@@ -35,7 +44,7 @@ public class RequisicaoNovoProfessor {
         professor.setNome(this.nome);
         professor.setSalario(this.salario);
         professor.setStatusProfessor(this.statusProfessor);
-        
+
         return professor;
     }
 
