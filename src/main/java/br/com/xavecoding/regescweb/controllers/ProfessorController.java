@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.xavecoding.regescweb.models.Professor;
+import br.com.xavecoding.regescweb.models.StatusProfessor;
 import br.com.xavecoding.regescweb.repositories.ProfessorRepository;
+import ch.qos.logback.core.status.Status;
 
 
 @Controller
@@ -26,4 +28,12 @@ public class ProfessorController {
 
         return mv;
     }
+
+    @GetMapping("/professores/new")
+    public ModelAndView nnew() {
+        ModelAndView mv = new ModelAndView("/professores/new");
+        mv.addObject("statusProfessor", StatusProfessor.values());
+        return mv;
+    }
+
 }
