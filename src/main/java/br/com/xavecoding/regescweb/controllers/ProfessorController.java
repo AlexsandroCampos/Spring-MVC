@@ -41,14 +41,16 @@ public class ProfessorController {
     }
 
     @PostMapping("/professores")
-    public String create(@Valid RequisicaoNovoProfessor requisicao, BindingResult bindingResult) {
+    public ModelAndView create(@Valid RequisicaoNovoProfessor requisicao, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            return "redirect:/professores/new";
+            ModelAndView mv = new ModelAndView("/professores/new");
+            mv.addObject("statusProfessor", StatusProfessor.values());
+            return mv;
         }
         else {
             Professor professor =  requisicao.toProfessor();
             this.professorRepository.save(professor);
-            return "redirect:/professores";
+            return new ModelAndView("redirect:/professores");
         }
         
     }
