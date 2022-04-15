@@ -71,7 +71,7 @@ public class ProfessorController {
             return mv;
         }
         else {
-            return new ModelAndView("redirect:/professores");
+            return this.retornaErroProfessor("SHOW ERROR: Professor #" + id + " não encontrado no banco!");
         }
     }
 
@@ -89,7 +89,7 @@ public class ProfessorController {
             return mv;
         }
         else {
-            return new ModelAndView("redirect:/professores");
+            return this.retornaErroProfessor("EDIT ERROR: Professor #" + id + " não encontrado no banco!");
         }
        
     }
@@ -111,22 +111,34 @@ public class ProfessorController {
                 return new ModelAndView("redirect:/professores/"+professor.getId());   
             }
             else {
-                return new ModelAndView("redirect:/professores");
+                return this.retornaErroProfessor("DELETE ERROR: Professor #" + id + " não encontrado no banco!");
             }     
         }  
     }
 
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable Long id) {
+    public ModelAndView delete(@PathVariable Long id) {
+        ModelAndView mv = new ModelAndView("redirect:/professores");
         Optional<Professor> optional = this.professorRepository.findById(id);
 
         if(optional.isPresent()) {
             Professor professor = optional.get();
             this.professorRepository.delete(professor);
-            return "redirect:/professores";   
+            mv.addObject("mensagem", "Professor #" + id + " deletado com sucesso!");
+            mv.addObject("erro", false);  
         }
         else {
-            return "redirect:/professores";
-        }     
+            mv = this.retornaErroProfessor("DELETE ERROR: Professor #" + id + " não encontrado no banco!");
+        }
+
+        return mv;     
+    }
+
+    private ModelAndView retornaErroProfessor(String msg) {
+        ModelAndView mv = new ModelAndView("redirect:/professores");
+        mv.addObject("mensagem", msg);
+        mv.addObject("erro", true);
+
+        return mv;
     }
 }
