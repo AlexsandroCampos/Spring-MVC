@@ -54,7 +54,8 @@ public class ProfessorController {
         else {
             Professor professor =  requisicao.toProfessor();
             this.professorRepository.save(professor);
-            return new ModelAndView("redirect:/professores/"+professor.getId());        }   
+            return new ModelAndView("redirect:/professores/"+professor.getId());        
+        }   
     }
 
     @GetMapping("/{id}")
@@ -91,5 +92,27 @@ public class ProfessorController {
             return new ModelAndView("redirect:/professores");
         }
        
+    }
+
+    @PostMapping("/{id}")
+    public ModelAndView update(@PathVariable Long id, @Valid RequisicaoFormProfessor requisicao, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            ModelAndView mv = new ModelAndView("/professores/edit");
+            mv.addObject("listaStatusProfessor", StatusProfessor.values());
+            mv.addObject("professorId", id);
+            return mv;
+        }
+        else {
+            Optional<Professor> optional = this.professorRepository.findById(id);
+
+            if(optional.isPresent()) {
+                Professor professor = requisicao.toProfessor(optional.get());
+                this.professorRepository.save(professor);
+                return new ModelAndView("redirect:/professores/"+professor.getId());   
+            }
+            else {
+                return new ModelAndView("redirect:/professores");
+            }     
+        }  
     }
 }
